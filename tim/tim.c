@@ -22,43 +22,20 @@ void TIM3_Init(u16 arr,u16 psc)
 	NVIC_Init(&NVIC_Initstructure);
 	
 	TIM_ITConfig(TIM3,TIM_IT_Update,ENABLE);	
-	TIM_Cmd(TIM3,ENABLE);						//¿ªÆô¶¨Ê±Æ÷
+	TIM_Cmd(TIM3,ENABLE);						//å¼€å¯å®šæ—¶å™¨
 }
 uint8_t tim_flag_s=0;
 
-//ÃëÕë¼ÆÊ±
+//ç§’é’ˆè®¡æ—¶
 void tim_clock(void){
 	tim_flag_s++;
 }
 
 void TIM3_IRQHandler(void)				
 {
-	if(TIM_GetITStatus(TIM3,TIM_IT_Update)==SET) //Òç³öÖÐ¶Ï
+	if(TIM_GetITStatus(TIM3,TIM_IT_Update)==SET) //æº¢å‡ºä¸­æ–­
 	{
 		tim_clock();
 	}
-	TIM_ClearITPendingBit(TIM3,TIM_IT_Update);  //Çå³ýÖÐ¶Ï±êÖ¾Î»
+	TIM_ClearITPendingBit(TIM3,TIM_IT_Update);  //æ¸…é™¤ä¸­æ–­æ ‡å¿—ä½
 }
-////ÎÞ²Î¹¹Ôì
-//pTIM_Class createLedClass(void){
-//	pTIM_Class tim_clock = (pTIM_Class)malloc(sizeof(TIM_Class));
-//	
-//	if(tim_clock == NULL){				
-//		return NULL;
-//	} 		
-
-//	return tim_clock;
-//}
-////ÓÐ²Î¹¹Ôì
-//pTIM_Class createLedClassWtihArgs(const int TIM_s,const int TIM_m,const int TIM_h){
-//	pTIM_Class tim_clock = createLedClass();
-//	if(tim_clock == NULL){				
-//		return NULL;
-//	}
-//	
-//	tim_clock ->TIM_s = TIM_s;
-//	tim_clock ->TIM_m = TIM_m;
-//	tim_clock ->TIM_h = TIM_h; 
-//	
-//	return tim_clock;
-//}
